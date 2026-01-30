@@ -1,0 +1,76 @@
+########################################
+# Global / Project Settings
+########################################
+
+project_name = "starttech"
+environment  = "dev"          # dev | staging | prod
+region       = "us-east-1"
+
+
+########################################
+# Networking
+########################################
+
+vpc_cidr            = "10.0.0.0/16"
+public_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.101.0/24", "10.0.102.0/24"]
+
+
+########################################
+# Compute (EC2 / ECS / EKS)
+########################################
+
+instance_type = "t3.micro"
+instance_count = 1
+
+key_pair_name = "starttech-keypair"
+
+
+########################################
+# Container / Application
+########################################
+
+backend_container_port  = 80
+frontend_container_port = 5173
+
+backend_image  = "starttech-backend:latest"
+frontend_image = "starttech-frontend:latest"
+
+
+########################################
+# Database
+########################################
+
+db_engine        = "postgres"
+db_engine_version = "15"
+db_instance_class = "db.t3.micro"
+db_name          = "starttechdb"
+db_username      = "starttech_user"
+db_password      = "CHANGE_ME"
+
+
+########################################
+# Storage
+########################################
+
+enable_s3 = true
+s3_bucket_name = "starttech-assets-example"
+
+
+########################################
+# Security
+########################################
+
+allowed_ssh_cidr = ["0.0.0.0/0"]
+allowed_http_cidr = ["0.0.0.0/0"]
+
+
+########################################
+# Tags
+########################################
+
+tags = {
+  Project     = "StartTech"
+  Environment = "dev"
+  Owner       = "StartTech-Team"
+}

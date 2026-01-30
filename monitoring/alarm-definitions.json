@@ -1,0 +1,22 @@
+[
+  {
+    "AlarmName": "HighCPU",
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/EC2",
+    "Statistic": "Average",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Threshold": 80,
+    "EvaluationPeriods": 2,
+    "AlarmActions": [ "<SNS-topic-ARN>" ]
+  },
+  {
+    "AlarmName": "ALB5XXErrors",
+    "MetricName": "HTTPCode_Target_5XX_Count",
+    "Namespace": "AWS/ApplicationELB",
+    "Statistic": "Sum",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Threshold": 5,
+    "EvaluationPeriods": 1,
+    "AlarmActions": [ "<SNS-topic-ARN>" ]
+  }
+]

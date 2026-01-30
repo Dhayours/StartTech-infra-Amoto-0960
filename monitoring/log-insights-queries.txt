@@ -1,0 +1,11 @@
+# Backend 5XX errors
+fields @timestamp, @message
+| filter status >= 500
+| sort @timestamp desc
+| limit 20
+
+# Frontend latency > 2s
+fields @timestamp, @message
+| filter latency > 2000
+| sort @timestamp desc
+| limit 20
