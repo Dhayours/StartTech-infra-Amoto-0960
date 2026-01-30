@@ -1,12 +1,20 @@
 name: Backend CI/CD
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - backend/**
+      - .github/workflows/backend-ci-cd.yml
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - backend/**
+
+  workflow_dispatch:
 
 jobs:
   backend-build-push:
@@ -29,7 +37,9 @@ jobs:
       - name: Build backend Docker image
         run: docker build -t backend:latest ./backend
 
-      - name: Tag & push backend image
+        - name: Tag & push backend image
         run: |
-          docker tag backend:latest ${{ secrets.ECR_REPO_URI }}:backend-latest
-          docker push ${{ secrets.ECR_REPO_URI }}:backend-latest
+            echo "ECR_REPO_URI=${{ secrets.ECR_REPO_URI }}"
+            docker tag backend:latest ${{ secrets.ECR_REPO_URI }}:backend-latest
+            docker push ${{ secrets.ECR_REPO_URI }}:backend-latest
+
