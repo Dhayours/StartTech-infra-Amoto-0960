@@ -13,3 +13,10 @@ terraform.tfvars
 # OS / editor
 .DS_Store
 *.swp
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.tfvars
