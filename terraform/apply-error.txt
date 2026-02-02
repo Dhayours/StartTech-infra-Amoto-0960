@@ -1,0 +1,32 @@
+Terraform Apply Error (AWS Account Restrictions)
+Date: 2026-02-02
+Region: eu-north-1
+Repository: StartTech-infra-Amoto-0960
+
+Summary:
+Terraform apply fails due to AWS account-level restrictions preventing creation of:
+1) ELBv2 Application Load Balancer (ALB)
+2) CloudFront Distribution
+
+Error Details:
+
+Error 1 — ALB creation blocked
+------------------------------------------------------------
+Error: creating ELBv2 application Load Balancer (starttech-frontend): operation error Elastic Load Balancing v2: CreateLoadBalancer, https response error StatusCode: 400, RequestID: 642ab47e-1c03-4879-a466-1802355ec977, OperationNotPermitted: This AWS account currently does not support creating load balancers. For more information, please contact AWS Support.
+
+  with module.compute.aws_lb.frontend,
+  on modules/compute/alb.tf line 3, in resource "aws_lb" "frontend":
+   3: resource "aws_lb" "frontend" {
+
+Error 2 — CloudFront creation blocked (account verification required)
+------------------------------------------------------------
+Error: creating CloudFront Distribution: operation error CloudFront: CreateDistributionWithTags, https response error StatusCode: 403, RequestID: 893c6465-9e91-4a76-9bb9-f0a0c652269e, AccessDenied: Your account must be verified before you can add new CloudFront resources. To verify your account, please contact AWS Support and include this error message.
+
+  with module.storage.aws_cloudfront_distribution.cdn,
+  on modules/storage/cloudfront.tf line 5, in resource "aws_cloudfront_distribution" "cdn":
+   5: resource "aws_cloudfront_distribution" "cdn" {
+
+Notes:
+- terraform init, validate, and plan succeed.
+- Multiple resources were successfully created before these restricted services failed.
+- These failures are not caused by Terraform syntax or configuration errors, but by AWS account limitations.
